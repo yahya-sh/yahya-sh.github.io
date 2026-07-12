@@ -6,7 +6,7 @@
     <section id="hero" data-label="Start" class="relative min-h-screen w-full snap-start snap-always flex items-center">
       <div class="max-w-6xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18 py-16 sm:py-20 md:py-0 flex flex-col md:flex-row md:items-center md:justify-between gap-12 sm:gap-16 md:gap-16 text-center md:text-left">
         <div class="max-w-3xl md:max-w-[34rem] lg:max-w-[40rem] order-2 md:order-1">
-          <p class="mb-3 text-xs sm:text-sm md:text-base uppercase tracking-[0.35em] text-white/50 font-medium">{{ config.extra.name }}</p>
+          <p class="mb-3 text-2xl sm:text-3xl md:text-4xl uppercase tracking-[0.25em] text-white/50 font-medium">{{ config.extra.name }}</p>
           <p class="font-display text-[1.9rem] leading-[1.04] sm:text-[2.35rem] md:text-[3.2rem] lg:text-[4rem] font-semibold tracking-[-0.02em]">{{ section.extra.hero_line }}</p>
           <p class="mt-5 sm:mt-6 text-white/50 text-xs sm:text-sm md:text-base tracking-[0.24em] uppercase">{{ config.extra.role }}</p>
         </div>
@@ -212,6 +212,7 @@
         event.preventDefault()
         if (prevButton.disabled) return
         stepBy(-1)
+        rstepBy(-1)
       })
     
       nextButton.addEventListener('click', function (event) {
