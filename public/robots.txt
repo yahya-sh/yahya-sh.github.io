@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Allow: /
+Sitemap: http://macbook-air-yahya.tailb540b4.ts.net/sitemap.xml

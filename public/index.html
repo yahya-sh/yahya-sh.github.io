@@ -1,17 +1,107 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      
+        Yahya Alshalabi — Software Engineer
+      
+    </title>
+    <meta name="description" content="Software Engineer — personal site" />
 
-{% block content %}
+    <link rel="icon" type="image/svg+xml" href="http://macbook-air-yahya.tailb540b4.ts.net/img/favicon.svg" />
+
+    <!-- Fonts: Space Grotesk for display/headings, Inter for body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!--   Tailwind (Play CDN — zero build step, keeps this project easy to edit).
+       To move to a compiled build later: `npm install -D tailwindcss` and
+       swap this script tag for a linked stylesheet built via the Tailwind CLI.   -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Space Grotesk"', 'sans-serif'],
+              sans: ['"Inter"', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      /* Respect reduced-motion preferences */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto !important;
+        }
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+      /* Keep a visible focus ring everywhere (accessibility) */
+      a:focus-visible,
+      button:focus-visible {
+        outline: 1px solid #ffffff;
+        outline-offset: 4px;
+      }
+      ::selection {
+        background: #ffffff;
+        color: #000000;
+      }
+      
+      html,
+      body {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar,
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+    </style>
+
+    
+
+    
+  </head>
+  <body class="bg-black text-white font-sans antialiased overflow-hidden">
+    <!--   Nav: minimal on purpose. Structured so Projects / Blog links can be
+       added later without touching the layout — see the commented block below.   -->
+    <header class="fixed top-0 left-0 w-full z-40 flex items-center justify-between px-6 md:px-10 py-5 md:py-6 pointer-events-none">
+      <a href="/" class="pointer-events-auto flex items-center gap-3 group" aria-label="Yahya Alshalabi — home">
+        <img src="http://macbook-air-yahya.tailb540b4.ts.net/img/logo-white.svg" alt="" class="h-6 w-6 opacity-90 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+        <span class="font-display text-sm md:text-base tracking-tight text-white/90">Yahya Alshalabi</span>
+      </a>
+
+      <nav class="pointer-events-auto hidden sm:flex items-center gap-8 text-sm text-white/70">
+        
+        
+      </nav>
+    </header>
+
+    
   <div id="scroll-container" class="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth overflow-x-hidden hide-scrollbar" style="-webkit-overflow-scrolling: touch;">
     <!-- 1. Hero -->
     <section id="hero" data-label="Start" class="relative min-h-screen w-full snap-start snap-always flex items-center">
       <div class="max-w-6xl mx-auto w-full px-5 sm:px-6 md:px-10 py-16 sm:py-20 md:py-0 flex flex-col md:flex-row md:items-center md:justify-between gap-12 sm:gap-16 md:gap-16 text-center md:text-left">
         <div class="max-w-3xl md:max-w-[34rem] lg:max-w-[40rem] order-2 md:order-1">
-          <p class="mb-3 text-xs sm:text-sm md:text-base uppercase tracking-[0.35em] text-white/50 font-medium">{{ config.extra.name }}</p>
-          <p class="font-display text-[1.9rem] leading-[1.04] sm:text-[2.35rem] md:text-[3.2rem] lg:text-[4rem] font-semibold tracking-[-0.02em]">{{ section.extra.hero_line }}</p>
-          <p class="mt-5 sm:mt-6 text-white/50 text-xs sm:text-sm md:text-base tracking-[0.24em] uppercase">{{ config.extra.role }}</p>
+          <p class="mb-3 text-xs sm:text-sm md:text-base uppercase tracking-[0.35em] text-white/50 font-medium">Yahya Alshalabi</p>
+          <p class="font-display text-[1.9rem] leading-[1.04] sm:text-[2.35rem] md:text-[3.2rem] lg:text-[4rem] font-semibold tracking-[-0.02em]">I take things apart to understand them. Then I build what holds.</p>
+          <p class="mt-5 sm:mt-6 text-white/50 text-xs sm:text-sm md:text-base tracking-[0.24em] uppercase">Software Engineer</p>
         </div>
         <div class="w-full md:w-auto flex justify-center md:justify-end order-1 md:order-2">
-          <img src="{{ get_url(path='img/me.jpg') }}" alt="Portrait of {{ config.extra.name }}" class="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-[1.75rem] object-cover border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.25)]" />
+          <img src="http://macbook-air-yahya.tailb540b4.ts.net/img/me.jpg" alt="Portrait of Yahya Alshalabi" class="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-[1.75rem] object-cover border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.25)]" />
         </div>
       </div>
     </section>
@@ -20,7 +110,7 @@
     <section id="who-i-am" data-label="Who I Am" class="relative min-h-screen w-full snap-start snap-always flex items-center">
       <div class="max-w-3xl mx-auto w-full px-6 md:px-10">
         <p class="text-xs uppercase tracking-[0.2em] text-white/45 font-medium mb-6">Who I Am</p>
-        <p class="text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">{{ section.extra.who_i_am }}</p>
+        <p class="text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">My path hasn&#x27;t been a straight line. I&#x27;ve had to start over more than once, without the comfort of routine or certainty. What stayed constant was this: I kept building, always drawn to understanding how things work beneath the surface. Instability never stopped me. If anything, it sharpened my ability to work things out on my own. Ownership and consistency matter more than circumstance. That&#x27;s not something I picked up in theory. It&#x27;s something I&#x27;ve had to live.</p>
       </div>
     </section>
 
@@ -29,9 +119,19 @@
       <div class="max-w-3xl mx-auto w-full px-6 md:px-10">
         <p class="text-xs uppercase tracking-[0.2em] text-white/45 font-medium mb-8">How I Work</p>
         <ul class="divide-y divide-white/15 border-t border-b border-white/15">
-          {% for line in section.extra.how_i_work %}
-            <li class="py-5 md:py-6 font-display text-xl sm:text-2xl md:text-3xl font-medium leading-snug">{{ line }}</li>
-          {% endfor %}
+          
+            <li class="py-5 md:py-6 font-display text-xl sm:text-2xl md:text-3xl font-medium leading-snug">I think in systems.</li>
+          
+            <li class="py-5 md:py-6 font-display text-xl sm:text-2xl md:text-3xl font-medium leading-snug">I&#x27;m comfortable without a clear starting point.</li>
+          
+            <li class="py-5 md:py-6 font-display text-xl sm:text-2xl md:text-3xl font-medium leading-snug">I stay steady when things aren&#x27;t.</li>
+          
+            <li class="py-5 md:py-6 font-display text-xl sm:text-2xl md:text-3xl font-medium leading-snug">I get straight to the point.</li>
+          
+            <li class="py-5 md:py-6 font-display text-xl sm:text-2xl md:text-3xl font-medium leading-snug">I learn on my own terms, constantly.</li>
+          
+            <li class="py-5 md:py-6 font-display text-xl sm:text-2xl md:text-3xl font-medium leading-snug">I take ownership seriously.</li>
+          
         </ul>
       </div>
     </section>
@@ -40,7 +140,7 @@
     <section id="story" data-label="The Story" class="relative min-h-screen w-full snap-start snap-always flex items-center">
       <div class="max-w-3xl mx-auto w-full px-6 md:px-10">
         <p class="text-xs uppercase tracking-[0.2em] text-white/45 font-medium mb-6">A Story That Says More Than a Resume Can</p>
-        <blockquote class="border-l-2 border-white/40 pl-6 md:pl-8 text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">{{ section.extra.story }}</blockquote>
+        <blockquote class="border-l-2 border-white/40 pl-6 md:pl-8 text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">It was 2020, no AI tools existed yet, just search engines and our own technical skills. With one week left before my final year graduation project deadline, I made a strategic call: instead of building a complex piece of the project from scratch, I searched for existing open-source work that matched what we needed. I found something that fit, adapted it to our requirements within the week, and we delivered on time. The project earned the highest grade among all graduation projects that year.</blockquote>
       </div>
     </section>
 
@@ -48,7 +148,7 @@
     <section id="looking-for" data-label="What's Next" class="relative min-h-screen w-full snap-start snap-always flex items-center">
       <div class="max-w-3xl mx-auto w-full px-6 md:px-10">
         <p class="text-xs uppercase tracking-[0.2em] text-white/45 font-medium mb-6">What I'm Looking For Now</p>
-        <p class="text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">{{ section.extra.looking_for }}</p>
+        <p class="text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">I&#x27;m in a season of intentional growth: sharpening my craft, deepening my skills, and looking for people and environments that value independent thinking, honest logic, and quiet persistence as much as they value results. I&#x27;m drawn to work with real complexity, problems that need to be understood deeply before they can be solved well, not just executed quickly.</p>
       </div>
     </section>
 
@@ -56,13 +156,13 @@
     <section id="contact" data-label="Contact" class="relative min-h-screen w-full snap-start snap-always flex items-center">
       <div class="max-w-3xl mx-auto w-full px-6 md:px-10 text-center md:text-left">
         <p class="text-xs uppercase tracking-[0.2em] text-white/45 font-medium mb-6">Let's Talk</p>
-        <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-10">{{ config.extra.name }}</h2>
+        <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-10">Yahya Alshalabi</h2>
         <div class="flex flex-col sm:flex-row items-center md:items-start gap-4">
-          <a href="mailto:{{ config.extra.email }}" class="inline-flex items-center justify-center px-7 py-3.5 border border-white rounded-full text-sm md:text-base hover:bg-white hover:text-black transition-colors">Email</a>
-          <a href="{{ config.extra.linkedin }}" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-7 py-3.5 border border-white/40 rounded-full text-sm md:text-base hover:border-white hover:bg-white hover:text-black transition-colors">LinkedIn</a>
-          <a href="{{ config.extra.github }}" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-7 py-3.5 border border-white/40 rounded-full text-sm md:text-base hover:border-white hover:bg-white hover:text-black transition-colors">GitHub</a>
+          <a href="mailto:yahya.alshalabi.eng@gmail.com" class="inline-flex items-center justify-center px-7 py-3.5 border border-white rounded-full text-sm md:text-base hover:bg-white hover:text-black transition-colors">Email</a>
+          <a href="https:&#x2F;&#x2F;linkedin.com&#x2F;in&#x2F;yahya-alshalabi" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-7 py-3.5 border border-white/40 rounded-full text-sm md:text-base hover:border-white hover:bg-white hover:text-black transition-colors">LinkedIn</a>
+          <a href="https:&#x2F;&#x2F;github.com&#x2F;yahya-sh" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-7 py-3.5 border border-white/40 rounded-full text-sm md:text-base hover:border-white hover:bg-white hover:text-black transition-colors">GitHub</a>
         </div>
-        <img src="{{ get_url(path='img/logo-white.svg') }}" alt="" aria-hidden="true" class="h-6 w-6 opacity-50 mt-16 mx-auto md:mx-0" />
+        <img src="http://macbook-air-yahya.tailb540b4.ts.net/img/logo-white.svg" alt="" aria-hidden="true" class="h-6 w-6 opacity-50 mt-16 mx-auto md:mx-0" />
       </div>
     </section>
   </div>
@@ -109,9 +209,9 @@
       <span class="dot w-1.5 h-1.5 rounded-full bg-gray-400/80 transition-all duration-200"></span>
     </button>
   </nav>
-{% endblock %}
 
-{% block extra_body %}
+
+    
   <script>
     ;(function () {
       var container = document.getElementById('scroll-container')
@@ -162,7 +262,7 @@
           updateButtons(targetIndex)
           return
         }
-    
+
         goToIndex(nextIndex)
       }
     
@@ -184,7 +284,7 @@
           var target = dotButton.getAttribute('data-target')
           var targetSection = document.querySelector(target)
           var index = sections.indexOf(targetSection)
-    
+
           if (index >= 0) {
             goToIndex(index)
           }
@@ -205,4 +305,8 @@
       updateButtons()
     })()
   </script>
-{% endblock %}
+
+
+    <script src="http://macbook-air-yahya.tailb540b4.ts.net/js/main.js" defer></script>
+  </body>
+</html>
