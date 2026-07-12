@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div id="scroll-container" class="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth overflow-x-hidden hide-scrollbar" style="-webkit-overflow-scrolling: touch;">
+  <div id="scroll-container" class="h-screen w-full overflow-y-scroll snap-y snap-mandatory overflow-x-hidden hide-scrollbar" style="scroll-behavior: auto; -webkit-overflow-scrolling: touch;">
     <!-- 1. Hero -->
     <section id="hero" data-label="Start" class="relative min-h-screen w-full snap-start snap-always flex items-center">
-      <div class="max-w-6xl mx-auto w-full px-5 sm:px-6 md:px-10 py-16 sm:py-20 md:py-0 flex flex-col md:flex-row md:items-center md:justify-between gap-12 sm:gap-16 md:gap-16 text-center md:text-left">
+      <div class="max-w-6xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18 py-16 sm:py-20 md:py-0 flex flex-col md:flex-row md:items-center md:justify-between gap-12 sm:gap-16 md:gap-16 text-center md:text-left">
         <div class="max-w-3xl md:max-w-[34rem] lg:max-w-[40rem] order-2 md:order-1">
           <p class="mb-3 text-xs sm:text-sm md:text-base uppercase tracking-[0.35em] text-white/50 font-medium">{{ config.extra.name }}</p>
           <p class="font-display text-[1.9rem] leading-[1.04] sm:text-[2.35rem] md:text-[3.2rem] lg:text-[4rem] font-semibold tracking-[-0.02em]">{{ section.extra.hero_line }}</p>
@@ -18,7 +18,7 @@
 
     <!-- 2. Who I am -->
     <section id="who-i-am" data-label="Who I Am" class="relative min-h-screen w-full snap-start snap-always flex items-center">
-      <div class="max-w-3xl mx-auto w-full px-6 md:px-10">
+      <div class="max-w-3xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18">
         <p class="text-xs uppercase tracking-[0.2em] text-white/45 font-medium mb-6">Who I Am</p>
         <p class="text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">{{ section.extra.who_i_am }}</p>
       </div>
@@ -26,7 +26,7 @@
 
     <!-- 3. How I work -->
     <section id="how-i-work" data-label="How I Work" class="relative min-h-screen w-full snap-start snap-always flex items-center">
-      <div class="max-w-3xl mx-auto w-full px-6 md:px-10">
+      <div class="max-w-3xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18">
         <p class="text-xs uppercase tracking-[0.2em] text-white/45 font-medium mb-8">How I Work</p>
         <ul class="divide-y divide-white/15 border-t border-b border-white/15">
           {% for line in section.extra.how_i_work %}
@@ -38,7 +38,7 @@
 
     <!-- 4. The story -->
     <section id="story" data-label="The Story" class="relative min-h-screen w-full snap-start snap-always flex items-center">
-      <div class="max-w-3xl mx-auto w-full px-6 md:px-10">
+      <div class="max-w-3xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18">
         <p class="text-xs uppercase tracking-[0.2em] text-white/45 font-medium mb-6">A Story That Says More Than a Resume Can</p>
         <blockquote class="border-l-2 border-white/40 pl-6 md:pl-8 text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">{{ section.extra.story }}</blockquote>
       </div>
@@ -46,7 +46,7 @@
 
     <!-- 5. What I'm looking for now -->
     <section id="looking-for" data-label="What's Next" class="relative min-h-screen w-full snap-start snap-always flex items-center">
-      <div class="max-w-3xl mx-auto w-full px-6 md:px-10">
+      <div class="max-w-3xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18">
         <p class="text-xs uppercase tracking-[0.2em] text-white/45 font-medium mb-6">What I'm Looking For Now</p>
         <p class="text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">{{ section.extra.looking_for }}</p>
       </div>
@@ -54,7 +54,7 @@
 
     <!-- 6. Contact -->
     <section id="contact" data-label="Contact" class="relative min-h-screen w-full snap-start snap-always flex items-center">
-      <div class="max-w-3xl mx-auto w-full px-6 md:px-10 text-center md:text-left">
+      <div class="max-w-3xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18 text-center md:text-left">
         <p class="text-xs uppercase tracking-[0.2em] text-white/45 font-medium mb-6">Let's Talk</p>
         <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-10">{{ config.extra.name }}</h2>
         <div class="flex flex-col sm:flex-row items-center md:items-start gap-4">
@@ -124,6 +124,26 @@
     
       if (!container || !prevButton || !nextButton || sections.length === 0) return
     
+      function getSectionIndexById(sectionId) {
+        for (var i = 0; i < sections.length; i++) {
+          if (sections[i].id === sectionId) {
+            return i
+          }
+        }
+    
+        return -1
+      }
+    
+      function updateHash(index) {
+        var sectionId = sections[index] && sections[index].id
+        if (!sectionId) return
+    
+        var nextHash = '#' + sectionId
+        if (window.location.hash !== nextHash) {
+          history.replaceState(null, '', nextHash)
+        }
+      }
+    
       function getCurrentIndex() {
         var closestIndex = 0
         var closestDistance = Infinity
@@ -146,13 +166,14 @@
         nextButton.disabled = currentIndex >= sections.length - 1
       }
     
-      function goToIndex(index) {
+      function goToIndex(index, animate) {
         var safeIndex = Math.max(0, Math.min(index, sections.length - 1))
         targetIndex = safeIndex
         updateButtons(safeIndex)
+        updateHash(safeIndex)
         container.scrollTo({
           top: sections[safeIndex].offsetTop,
-          behavior: 'smooth'
+          behavior: animate === false ? 'auto' : 'smooth'
         })
       }
     
@@ -163,7 +184,17 @@
           return
         }
     
-        goToIndex(nextIndex)
+        goToIndex(nextIndex, true)
+      }
+    
+      function SyncFromHash() {
+        var hashIndex = getSectionIndexById(window.location.hash.replace(/^#/, ''))
+        if (hashIndex >= 0) {
+          currentIndex = hashIndex
+          targetIndex = hashIndex
+          updateButtons(hashIndex)
+          goToIndex(hashIndex, false)
+        }
       }
     
       prevButton.addEventListener('click', function (event) {
@@ -186,7 +217,7 @@
           var index = sections.indexOf(targetSection)
     
           if (index >= 0) {
-            goToIndex(index)
+            goToIndex(index, true)
           }
         })
       })
@@ -194,7 +225,13 @@
       container.addEventListener(
         'scroll',
         function () {
-          updateButtons()
+          var index = getCurrentIndex()
+          if (index !== currentIndex) {
+            currentIndex = index
+            targetIndex = index
+            updateButtons(index)
+            updateHash(index)
+          }
         },
         { passive: true }
       )
@@ -202,7 +239,11 @@
       window.addEventListener('resize', function () {
         updateButtons()
       })
+      window.addEventListener('load', function () {
+        SyncFromHash()
+      })
       updateButtons()
+      SyncFromHash()
     })()
   </script>
 {% endblock %}
