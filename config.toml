@@ -1,7 +1,7 @@
 # Zola configuration
 # Docs: https://www.getzola.org/documentation/getting-started/configuration/
 
-base_url = "https://example.com"
+base_url = "http://macbook-air-yahya.tailb540b4.ts.net"
 title = "Yahya Alshalabi"
 description = "Software Engineer — personal site"
 # theme = false
