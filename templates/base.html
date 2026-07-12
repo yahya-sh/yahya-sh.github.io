@@ -17,9 +17,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
-    <!--   Tailwind (Play CDN — zero build step, keeps this project easy to edit).
+    <!--     Tailwind (Play CDN — zero build step, keeps this project easy to edit).
        To move to a compiled build later: `npm install -D tailwindcss` and
-       swap this script tag for a linked stylesheet built via the Tailwind CLI.   -->
+       swap this script tag for a linked stylesheet built via the Tailwind CLI.     -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -76,8 +76,8 @@
     {% endblock %}
   </head>
   <body class="bg-black text-white font-sans antialiased overflow-hidden">
-    <!--   Nav: minimal on purpose. Structured so Projects / Blog links can be
-       added later without touching the layout — see the commented block below.   -->
+    <!--     Nav: minimal on purpose. Structured so Projects / Blog links can be
+       added later without touching the layout — see the commented block below.     -->
     <header class="fixed top-0 left-0 w-full z-40 flex items-center justify-between px-6 md:px-10 py-5 md:py-6 pointer-events-none">
       <a href="/" class="pointer-events-auto flex items-center gap-3 group" aria-label="{{ config.extra.name }} — home">
         <img src="{{ get_url(path='img/logo-white.svg') }}" alt="" class="h-6 w-6 opacity-90 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
