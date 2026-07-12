@@ -1,0 +1,33 @@
+# Zola configuration
+# Docs: https://www.getzola.org/documentation/getting-started/configuration/
+
+base_url = "https://example.com"
+title = "Yahya Alshalabi"
+description = "Software Engineer — personal site"
+# theme = false
+compile_sass = false
+build_search_index = false
+generate_feeds = false
+
+# Sections left disabled for now. When you're ready to add Projects and Blog,
+# uncomment the lines below and create content/projects/_index.md and
+# content/blog/_index.md (Zola will pick them up automatically as sections).
+# minify_html = false
+
+[markdown]
+# highlight_code = false
+smart_punctuation = true
+
+[extra]
+name = "Yahya Alshalabi"
+role = "Software Engineer"
+email = "yahya.alshalabi.eng@gmail.com"
+linkedin = "https://linkedin.com/in/yahya-alshalabi"
+linkedin_label = "linkedin.com/in/yahya-alshalabi"
+github = "https://github.com/yahya-sh"
+github_label = "github.com/yahya-sh"
+
+# Set these to true once the corresponding sections/pages exist,
+# and the nav will pick them up automatically (see templates/base.html).
+show_projects_nav = false
+show_blog_nav = false
