@@ -166,15 +166,23 @@
         nextButton.disabled = currentIndex >= sections.length - 1
       }
     
-      function goToIndex(index, animate) {
+      function scrollToIndex(index, animate) {
         var safeIndex = Math.max(0, Math.min(index, sections.length - 1))
+        var targetTop = sections[safeIndex].offsetTop
+    
         targetIndex = safeIndex
         updateButtons(safeIndex)
         updateHash(safeIndex)
+    
+        container.style.scrollBehavior = animate === false ? 'auto' : 'smooth'
         container.scrollTo({
-          top: sections[safeIndex].offsetTop,
+          top: targetTop,
           behavior: animate === false ? 'auto' : 'smooth'
         })
+      }
+    
+      function goToIndex(index, animate) {
+        scrollToIndex(index, animate)
       }
     
       function stepBy(direction) {
@@ -228,7 +236,6 @@
           var index = getCurrentIndex()
           if (index !== currentIndex) {
             currentIndex = index
-            targetIndex = index
             updateButtons(index)
             updateHash(index)
           }
