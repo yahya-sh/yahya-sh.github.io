@@ -1,7 +1,7 @@
 # Zola configuration
 # Docs: https://www.getzola.org/documentation/getting-started/configuration/
 
-base_url = "https://username.github.io"
+base_url = "https://yahya-sh.github.io"
 title = "Yahya Alshalabi"
 description = "Personal site"
 compile_sass = false
