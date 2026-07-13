@@ -19,9 +19,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - uses: actions/checkout@v4
 
-      - uses: getzola/github-pages@v1
+      - name: Deploy Zola site
+        id: deployment
+        uses: getzola/github-pages@v1
         with:
           zola_version: v0.22.1
