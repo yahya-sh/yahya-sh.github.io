@@ -1,90 +1,33 @@
-# Yahya Alshalabi — personal site (Zola + Tera + Tailwind)
+# Hi, I'm Yahya Alshalabi
 
-A one-page personal site. Dark mode, white primary, outlined secondary
-elements, no color palette. Built with:
+### Backend and Test Automation Engineer
+**Learning whatever it takes to solve problems and help people.**
 
-- **Zola** — Rust-based static site generator (fast, single binary, no Node
-  build chain required)
-- **Tera** — the template engine Zola uses, syntax modeled on Jinja2/Django
-  templates (`{% extends %}`, `{% block %}`, `{% for %}`, `{{ variable }}`)
-- **Tailwind CSS** — via the Play CDN script tag for zero build-step styling,
-  so editing is just changing utility classes in the templates
+🔗 [Explore My Personal Website](https://yahya-sh.github.io)
 
-## Getting started
+---
 
-1. Install Zola (one-time):
-   - macOS: `brew install zola`
-   - Windows: `choco install zola` or `scoop install zola`
-   - Linux / other: download a binary from
-     https://github.com/getzola/zola/releases and put it on your PATH
+I love two things above all else in engineering: the challenge of learning any tech stack thrown my way, and the satisfaction of helping people solve tough problems. I am just as happy brainstorming ideas on a whiteboard with a teammate as I am rolling up my sleeves to code the fix myself.
 
-2. From this folder, run:
-   ```
-   zola serve
-   ```
-   This starts a local dev server (usually `http://127.0.0.1:1111`) and
-   live-reloads as you edit.
+### How I Work
 
-3. To build the final static files for hosting:
-   ```
-   zola build
-   ```
-   Output goes to a `public/` folder — upload that anywhere (Netlify,
-   GitHub Pages, Vercel, any static host).
+* **Research before planning:** I always take the time to brainstorm and compare every possible option so we choose what actually works best for the situation.
+* **Loving tech and automation:** I really enjoy picking up new tools and writing automation to get rid of repetitive, frustrating tasks.
+* **Collaborative by nature:** I genuinely love talking things through with teammates, mapping out solutions together, and helping out whenever someone is stuck.
 
-## Editing content
+### A Quick Story
 
-All the page text lives in `content/_index.md`, in the `[extra]` front
-matter block — not in the templates. To change any wording (hero line,
-"who I am," "how I work" list, story, etc.), edit that file only.
+A week before our 2020 graduation deadline, my team was stuck trying to build a complex component from scratch. To save our project, I researched open-source alternatives, taught myself an unfamiliar codebase overnight, and integrated it into our system. We delivered on time and earned the highest grade. 
 
-Contact links (email, LinkedIn, GitHub) and your name/role live in
-`config.toml` under `[extra]`.
+That is where my real strength lies: rapidly understanding existing code and making the right strategic choice instead of reinventing the wheel.
 
-## Editing design
+### What I'm Looking For
 
-Layout and structure are in `templates/index.html`. Styling is done with
-Tailwind utility classes directly in the HTML — e.g. to make the hero
-headline bigger, find the line with `text-4xl sm:text-5xl md:text-6xl
-lg:text-7xl` and adjust those size classes. No separate CSS file to hunt
-through.
+I want to be part of a backend team that values curiosity, where people enjoy working on complex systems and naturally look out for each other when solving hard problems.
 
-## Assets
+### Let's Connect
 
-- `static/img/me.jpg` — your headshot, already resized/optimized
-- `static/img/logo.svg` — your logo, inverted to white for the dark
-  background
-- `static/img/favicon.svg` — your logo on a black square, used as the
-  browser tab icon (browser tabs default to a light background, so this
-  version keeps a solid backing behind the mark)
-- `static/img/relentless.svg` — your personal graphic, used as a quiet
-  visual accent after "The Story" section
-
-## Adding Projects / Blog later
-
-The nav in `templates/base.html` already has commented-out slots for
-"Projects" and "Blog" links, gated behind `config.extra.show_projects_nav`
-and `config.extra.show_blog_nav` (both currently `false` in `config.toml`).
-
-When you're ready to add either:
-
-1. Create a folder, e.g. `content/projects/`, with an `_index.md` inside it
-   (front matter: `title`, `sort_by = "date"`, `template = "projects.html"`
-   or similar) plus one `.md` file per project.
-2. Create a matching template, e.g. `templates/projects.html`, following the
-   same `{% extends "base.html" %}` / `{% block content %}` pattern used in
-   `templates/index.html`.
-3. Flip the matching `show_*_nav` flag to `true` in `config.toml`.
-
-This keeps the current one-page layout untouched while giving each new
-section its own clean template.
-
-## A note on Tailwind
-
-This project uses the Tailwind **Play CDN** (`cdn.tailwindcss.com`) — it
-compiles utility classes in the browser at runtime, so there's no build step
-to manage. This is fine for a small personal site. If the site grows and you
-want a smaller, production-optimized CSS bundle later, swap the CDN
-`<script>` tag in `templates/base.html` for a compiled stylesheet using the
-Tailwind CLI (`npm install -D tailwindcss` → `npx tailwindcss -o
-static/css/main.css --minify`), then link that file instead.
+* **Website:** [yahya-sh.github.io](https://yahya-sh.github.io)
+* **Email:** yahya.alshalabi.eng@gmail.com
+* **LinkedIn:** [linkedin.com/in/yahya-alshalabi](https://linkedin.com/in/yahya-alshalabi)
+* **GitHub:** [github.com/yahya-sh](https://github.com/yahya-sh)
