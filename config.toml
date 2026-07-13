@@ -1,7 +1,7 @@
 # Zola configuration
 # Docs: https://www.getzola.org/documentation/getting-started/configuration/
 
-base_url = "http://macbook-air-yahya.tailb540b4.ts.net"
+base_url = "https://username.github.io"
 title = "Yahya Alshalabi"
 description = "Personal site"
 compile_sass = false
