@@ -1,4 +1,4 @@
-name: Deploy Zola site
+name: Build and deploy Zola website
 
 on:
   push:
@@ -12,22 +12,35 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Zola + upload Pages artifact
+        uses: getzola/github-pages@v1
+        with:
+          zola_version: v0.22.1
+
   deploy:
     runs-on: ubuntu-latest
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
 
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Deploy Zola site
+      - name: Deploy to GitHub Pages
         id: deployment
-        uses: getzola/github-pages@v1
-        with:
-          zola_version: v0.22.1
+        uses: actions/deploy-pages@v4
