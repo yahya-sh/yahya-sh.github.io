@@ -1,1 +1,0 @@
-zola serve  --interface 0.0.0.0 --base-url http://macbook-air-yahya.tailb540b4.ts.net --port 1111

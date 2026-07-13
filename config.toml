@@ -3,8 +3,7 @@
 
 base_url = "http://macbook-air-yahya.tailb540b4.ts.net"
 title = "Yahya Alshalabi"
-description = "Software Engineer — personal site"
-# theme = false
+description = "Personal site"
 compile_sass = false
 build_search_index = false
 generate_feeds = false
@@ -20,7 +19,7 @@ smart_punctuation = true
 
 [extra]
 name = "Yahya Alshalabi"
-role = "Software Engineer"
+role = "Backend and Test Automation Engineer"
 email = "yahya.alshalabi.eng@gmail.com"
 linkedin = "https://linkedin.com/in/yahya-alshalabi"
 linkedin_label = "linkedin.com/in/yahya-alshalabi"

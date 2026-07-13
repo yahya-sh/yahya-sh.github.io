@@ -52,7 +52,7 @@ through.
 ## Assets
 
 - `static/img/me.jpg` — your headshot, already resized/optimized
-- `static/img/logo-white.svg` — your logo, inverted to white for the dark
+- `static/img/logo.svg` — your logo, inverted to white for the dark
   background
 - `static/img/favicon.svg` — your logo on a black square, used as the
   browser tab icon (browser tabs default to a light background, so this
