@@ -29,8 +29,7 @@ jobs:
           node-version: 20
 
       - name: Build Tailwind CSS v4
-        run: npx -p @tailwindcss/cli -p tailwindcss tailwindcss -i ./static/css/style.css -o ./static/css/compiled.style.css --minify
-
+        run: npx -p @tailwindcss/cli -p tailwindcss @tailwindcss/cli -i ./static/css/style.css -o ./static/css/compiled.style.css --minify
       - name: Build Zola + upload Pages artifact
         uses: getzola/github-pages@v1
         with:
