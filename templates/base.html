@@ -12,17 +12,23 @@
 
     <link rel="icon" type="image/svg+xml" href="{{ get_url(path='img/logo.svg') }}" />
 
-    <!-- Preconnect to font domains to reduce connection overhead -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Optimized Google Fonts with swap display -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" />
-
     <!-- Inlined Compiled Tailwind CSS (Zero render-blocking requests) -->
     <style>{{ load_data(path="static/css/compiled.style.css") | safe }}</style>
 
     <style>
+      :root {
+        --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+        --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      }
+
+      body {
+        font-family: var(--font-sans);
+      }
+
+      .font-display {
+        font-family: var(--font-display);
+      }
+
       /* Accessibility: Skip Navigation Link */
       .skip-link {
         position: absolute;
