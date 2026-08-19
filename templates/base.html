@@ -12,14 +12,18 @@
 
     <link rel="icon" type="image/svg+xml" href="{{ get_url(path='img/logo.svg') }}" />
 
-    <!-- Fonts: Space Grotesk for display/headings, Inter for body text -->
+    <!-- Preconnect to font domains to reduce connection overhead -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
-    <!--      Tailwind (Play CDN — zero build step, keeps this project easy to edit).
-       To move to a compiled build later: `npm install -D tailwindcss` and
-       swap this script tag for a linked stylesheet built via the Tailwind CLI.      -->
+    <!-- Non-blocking Google Fonts with display=swap (Fixes Render-Blocking LCP) -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
+    </noscript>
+
+    <!-- Tailwind Play CDN configuration -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -35,6 +39,33 @@
     </script>
 
     <style>
+      /* Accessibility: Skip Navigation Link */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #38bdf8;
+        color: #0f172a;
+        padding: 8px 16px;
+        font-weight: 700;
+        z-index: 100;
+        transition: top 0.2s ease;
+        text-decoration: none;
+        border-radius: 0 0 4px 0;
+      }
+      .skip-link:focus {
+        top: 0;
+      }
+
+      /* Fix Non-Composited Animations (Uses GPU scale transform instead of width/height) */
+      .dot {
+        will-change: transform;
+        transition: transform 200ms ease, background-color 200ms ease;
+      }
+      .group:hover .dot {
+        transform: scale(1.5);
+      }
+
       /* Respect reduced-motion preferences */
       @media (prefers-reduced-motion: reduce) {
         html {
@@ -46,7 +77,8 @@
           transition-duration: 0.01ms !important;
         }
       }
-      /* Keep a visible focus ring everywhere (accessibility) */
+
+      /* Focus rings for keyboard navigation accessibility */
       a:focus-visible,
       button:focus-visible {
         outline: 1px solid #ffffff;
@@ -71,20 +103,21 @@
       }
     </style>
 
-    {% block extra_head %}
-
-    {% endblock %}
+    {% block extra_head %}{% endblock %}
   </head>
   <body class="bg-black text-white font-sans antialiased overflow-hidden">
-    <!--      Nav: minimal on purpose. Structured so Projects / Blog links can be
-       added later without touching the layout — see the commented block below.      -->
-    <header class="fixed top-0 left-0 w-full z-40 flex items-center justify-between px-6 md:px-10 py-5 md:py-6 pointer-events-none">
+    <!-- Skip to main content link for keyboard & screen reader users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header Landmark (HTML5 + ARIA role) -->
+    <header role="banner" class="fixed top-0 left-0 w-full z-40 flex items-center justify-between px-6 md:px-10 py-5 md:py-6 pointer-events-none">
       <a href="/" class="pointer-events-auto flex items-center gap-3 group" aria-label="{{ config.extra.name }} — home">
-        <img src="{{ get_url(path='img/logo.svg') }}" alt="" class="h-6 w-6 opacity-90 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+        <img src="{{ get_url(path='img/logo.svg') }}" alt="" width="24" height="24" class="h-6 w-6 opacity-90 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
         <span class="font-display text-sm md:text-base tracking-tight text-white/90">{{ config.extra.name }}</span>
       </a>
 
-      <nav class="pointer-events-auto hidden sm:flex items-center gap-8 text-sm text-white/70">
+      <!-- Navigation Landmark -->
+      <nav role="navigation" aria-label="Main Navigation" class="pointer-events-auto hidden sm:flex items-center gap-8 text-sm text-white/70">
         {% if config.extra.show_projects_nav %}
           <a href="{{ get_url(path='projects') }}" class="hover:text-white transition-colors">Projects</a>
         {% endif %}
@@ -94,13 +127,9 @@
       </nav>
     </header>
 
-    {% block content %}
+    {% block content %}{% endblock %}
 
-    {% endblock %}
-
-    {% block extra_body %}
-
-    {% endblock %}
+    {% block extra_body %}{% endblock %}
 
     <script src="{{ get_url(path='js/main.js') }}" defer></script>
   </body>

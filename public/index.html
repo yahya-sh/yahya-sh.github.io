@@ -1,119 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Yahya SH - Portfolio & Projects">
-  <title>Yahya SH - Portfolio</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      
+        Yahya Alshalabi — Backend and Test Automation Engineer
+      
+    </title>
+    <meta name="description" content="Personal site" />
 
-  <!-- Preconnect to external domains to speed up connection setup -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="https://yahya-sh.github.io/img/logo.svg" />
 
-  <!-- Loading Main Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Preconnect to font domains to reduce connection overhead -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+    <!-- Non-blocking Google Fonts with display=swap (Fixes Render-Blocking LCP) -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
+    </noscript>
 
-  <style>
-    /* Skip Link for sighted/keyboard-only users */
-    .skip-link {
-      position: absolute;
-      top: -40px;
-      left: 0;
-      background: #38bdf8;
-      color: #0f172a;
-      padding: 8px 16px;
-      font-weight: 700;
-      z-index: 100;
-      transition: top 0.2s ease;
-      text-decoration: none;
-      border-radius: 0 0 4px 0;
-    }
-    .skip-link:focus {
-      top: 0;
-    }
+    <!-- Tailwind Play CDN configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Space Grotesk"', 'sans-serif'],
+              sans: ['"Inter"', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
 
-    /* Critical Inline CSS for instant First Contentful Paint (FCP) */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: #0f172a;
-      color: #f8fafc;
-      line-height: 1.6;
-    }
-    header {
-      padding: 1.5rem 2rem;
-      background-color: #1e293b;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    nav a {
-      color: #38bdf8;
-      text-decoration: none;
-      margin-left: 1.5rem;
-      font-weight: 600;
-    }
-    main {
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-    #hero h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: #f8fafc;
-    }
-    #hero p {
-      font-size: 1.25rem;
-      color: #94a3b8;
-      max-width: 600px;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background-color: #1e293b;
-      color: #64748b;
-    }
-  </style>
-</head>
-<body>
+    <style>
+      /* Accessibility: Skip Navigation Link */
+      .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #38bdf8;
+        color: #0f172a;
+        padding: 8px 16px;
+        font-weight: 700;
+        z-index: 100;
+        transition: top 0.2s ease;
+        text-decoration: none;
+        border-radius: 0 0 4px 0;
+      }
+      .skip-link:focus {
+        top: 0;
+      }
 
-  <!-- Skip Navigation Link (Essential for sighted keyboard users) -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+      /* Fix Non-Composited Animations (Uses GPU scale transform instead of width/height) */
+      .dot {
+        will-change: transform;
+        transition: transform 200ms ease, background-color 200ms ease;
+      }
+      .group:hover .dot {
+        transform: scale(1.5);
+      }
 
-  <!-- Header Landmark with explicit ARIA role -->
-  <header role="banner">
-    <div class="logo">Yahya SH</div>
+      /* Respect reduced-motion preferences */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto !important;
+        }
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      /* Focus rings for keyboard navigation accessibility */
+      a:focus-visible,
+      button:focus-visible {
+        outline: 1px solid #ffffff;
+        outline-offset: 4px;
+      }
+      ::selection {
+        background: #ffffff;
+        color: #000000;
+      }
+      
+      html,
+      body {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar,
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+    </style>
+
     
-    <!-- Navigation Landmark with explicit ARIA role -->
-    <nav role="navigation" aria-label="Main Navigation">
-      <a href="#hero">Home</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  </head>
+  <body class="bg-black text-white font-sans antialiased overflow-hidden">
+    <!-- Skip to main content link for keyboard & screen reader users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Single Main Landmark with explicit ARIA role -->
-  <main id="main-content" role="main" tabindex="-1">
-    <section id="hero">
-      <h1>Hello, I'm Yahya</h1>
-      <p>Welcome to my portfolio. I build web experiences focused on performance and modern design.</p>
-    </section>
+    <!-- Header Landmark (HTML5 + ARIA role) -->
+    <header role="banner" class="fixed top-0 left-0 w-full z-40 flex items-center justify-between px-6 md:px-10 py-5 md:py-6 pointer-events-none">
+      <a href="/" class="pointer-events-auto flex items-center gap-3 group" aria-label="Yahya Alshalabi — home">
+        <img src="https://yahya-sh.github.io/img/logo.svg" alt="" width="24" height="24" class="h-6 w-6 opacity-90 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+        <span class="font-display text-sm md:text-base tracking-tight text-white/90">Yahya Alshalabi</span>
+      </a>
+
+      <!-- Navigation Landmark -->
+      <nav role="navigation" aria-label="Main Navigation" class="pointer-events-auto hidden sm:flex items-center gap-8 text-sm text-white/70">
+        
+        
+      </nav>
+    </header>
+
+    
+  <!-- Main Landmark with tabindex for skip-to-content focus -->
+  <main id="main-content" role="main" tabindex="-1" class="outline-none">
+    <div id="scroll-container" class="h-screen w-full overflow-y-scroll snap-y snap-mandatory overflow-x-hidden hide-scrollbar" style="scroll-behavior: auto; -webkit-overflow-scrolling: touch;">
+      
+      <!-- 1. Hero -->
+      <section id="hero" data-label="Start" class="relative min-h-screen w-full snap-start snap-always flex items-center">
+        <div class="max-w-6xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18 py-16 sm:py-20 md:py-0 flex flex-col md:flex-row md:items-center md:justify-between gap-12 sm:gap-16 md:gap-16 text-center md:text-left">
+          <div class="max-w-3xl md:max-w-[34rem] lg:max-w-[40rem] order-2 md:order-1">
+            <p class="mb-3 text-2xl sm:text-3xl md:text-4xl uppercase tracking-[0.25em] text-white/50 font-medium">Yahya Alshalabi</p>
+            <p class="font-display text-[1.9rem] leading-[1.04] sm:text-[2.35rem] md:text-[3.2rem] lg:text-[4rem] font-semibold tracking-[-0.02em]">Learning whatever it takes to solve problems and help people.</p>
+            <p class="mt-5 sm:mt-6 text-white/50 text-xs sm:text-sm md:text-base tracking-[0.24em] uppercase">Backend and Test Automation Engineer</p>
+          </div>
+
+          <!-- Optimized WebP Image via Zola resize_image -->
+          
+          
+
+          <div class="w-full md:w-auto flex justify-center md:justify-end order-1 md:order-2">
+            <img 
+              src="https:&#x2F;&#x2F;yahya-sh.github.io&#x2F;processed_images&#x2F;me.dd9b21187f96f6f1.webp" 
+              srcset="https:&#x2F;&#x2F;yahya-sh.github.io&#x2F;processed_images&#x2F;me.dd9b21187f96f6f1.webp 320w, https:&#x2F;&#x2F;yahya-sh.github.io&#x2F;processed_images&#x2F;me.97d96d21356440d8.webp 480w"
+              sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, 224px"
+              alt="Portrait of Yahya Alshalabi" 
+              width="320"
+              height="320"
+              loading="eager"
+              decoding="async"
+              class="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-[1.75rem] object-cover border border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.25)]" 
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Who I am -->
+      <section id="who-i-am" data-label="Who I Am" class="relative min-h-screen w-full snap-start snap-always flex items-center">
+        <div class="max-w-3xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18">
+          <p class="text-base uppercase tracking-[0.2em] text-white/45 font-medium mb-6">Who I Am</p>
+          <p class="text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">I am a Backend and Automation Engineer who loves two things: the challenge of learning any tech stack thrown my way, and the satisfaction of helping people solve tough problems. I&#x27;m just as happy brainstorming ideas on a whiteboard with a teammate as I am rolling up my sleeves to code the fix myself.</p>
+        </div>
+      </section>
+
+      <!-- 3. How I work -->
+      <section id="how-i-work" data-label="How I Work" class="relative min-h-screen w-full snap-start snap-always flex items-center">
+        <div class="max-w-3xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18">
+          <p class="text-base uppercase tracking-[0.2em] text-white/45 font-medium mb-8">How I Work</p>
+          <ul class="divide-y divide-white/15 border-t border-b border-white/15">
+            
+              <li class="py-5 md:py-6 font-display text-xl sm:text-2xl md:text-3xl font-medium leading-snug">Research before planning: I always take the time to brainstorm and compare every possible option so we choose what actually works best for the situation.</li>
+            
+              <li class="py-5 md:py-6 font-display text-xl sm:text-2xl md:text-3xl font-medium leading-snug">Loving tech and automation: I really enjoy picking up new tools and writing automation to get rid of repetitive, frustrating tasks.</li>
+            
+              <li class="py-5 md:py-6 font-display text-xl sm:text-2xl md:text-3xl font-medium leading-snug">Collaborative by nature: I genuinely love talking things through with teammates, mapping out solutions together, and helping out whenever someone is stuck.</li>
+            
+          </ul>
+        </div>
+      </section>
+
+      <!-- 4. The story -->
+      <section id="story" data-label="The Story" class="relative min-h-screen w-full snap-start snap-always flex items-center">
+        <div class="max-w-3xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18">
+          <p class="text-base uppercase tracking-[0.2em] text-white/45 font-medium mb-6">A Story That Says More Than a Resume Can</p>
+          <blockquote class="border-l-2 border-white/40 pl-6 md:pl-8 text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">A week before our 2020 graduation deadline, my team was stuck trying to build a complex component from scratch. To save our project, I researched open-source alternatives, taught myself an unfamiliar codebase overnight, and integrated it into our system. We delivered on time and earned the highest grade. That is where my real strength lies: rapidly understanding existing code and making the right strategic choice instead of reinventing the wheel.</blockquote>
+        </div>
+      </section>
+
+      <!-- 5. What I'm looking for now -->
+      <section id="looking-for" data-label="What's Next" class="relative min-h-screen w-full snap-start snap-always flex items-center">
+        <div class="max-w-3xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18">
+          <p class="text-base uppercase tracking-[0.2em] text-white/45 font-medium mb-6">What I'm Looking For Now</p>
+          <p class="text-xl sm:text-2xl md:text-3xl leading-relaxed text-white/90 font-light">A backend team that values curiosity, where people enjoy working on complex systems and naturally look out for each other when solving hard problems.</p>
+        </div>
+      </section>
+
+      <!-- 6. Contact (Also acts as Footer Landmark) -->
+      <footer id="contact" role="contentinfo" data-label="Contact" class="relative min-h-screen w-full snap-start snap-always flex items-center">
+        <div class="max-w-3xl mx-auto w-full px-8 sm:px-14 md:px-16 lg:px-18 text-center md:text-left">
+          <p class="text-base uppercase tracking-[0.2em] text-white/45 font-medium mb-6">Let's Talk</p>
+          <h2 class="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight mb-10">Yahya Alshalabi</h2>
+          <div class="flex flex-col sm:flex-row items-center md:items-start gap-4">
+            <a href="mailto:yahya.alshalabi.eng@gmail.com" class="inline-flex items-center justify-center px-7 py-3.5 border border-white rounded-full text-sm md:text-base hover:bg-white hover:text-black transition-colors">Email</a>
+            <a href="https:&#x2F;&#x2F;linkedin.com&#x2F;in&#x2F;yahya-alshalabi" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-7 py-3.5 border border-white/40 rounded-full text-sm md:text-base hover:border-white hover:bg-white hover:text-black transition-colors">LinkedIn</a>
+            <a href="https:&#x2F;&#x2F;github.com&#x2F;yahya-sh" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-7 py-3.5 border border-white/40 rounded-full text-sm md:text-base hover:border-white hover:bg-white hover:text-black transition-colors">GitHub</a>
+          </div>
+          <img src="https://yahya-sh.github.io/img/logo.svg" alt="" width="24" height="24" aria-hidden="true" class="h-6 w-6 opacity-50 mt-16 mx-auto md:mx-0" />
+        </div>
+      </footer>
+    </div>
   </main>
 
-  <!-- Footer Landmark with explicit ARIA role -->
-  <footer role="contentinfo">
-    <p>&copy; 2026 Yahya SH. All rights reserved.</p>
-  </footer>
+  <div class="fixed inset-x-0 top-0 z-30 h-40 md:h-48 pointer-events-none bg-gradient-to-b from-black to-transparent"></div>
+  <div class="fixed inset-x-0 bottom-0 z-40 h-48 pointer-events-none bg-gradient-to-t from-black to-transparent"></div>
 
-</body>
+  <!-- Mobile Prev/Next Controls -->
+  <div class="fixed bottom-4 left-5 z-50 md:hidden">
+    <button id="prev-section" type="button" aria-label="Previous section" class="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 shadow-lg backdrop-blur-sm transition-all touch-manipulation disabled:cursor-default disabled:opacity-40 disabled:hover:opacity-40">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-5 w-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
+      </svg>
+    </button>
+  </div>
+  <div class="fixed bottom-4 right-5 z-50 md:hidden">
+    <button id="next-section" type="button" aria-label="Next section" class="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 shadow-lg backdrop-blur-sm transition-all touch-manipulation disabled:cursor-default disabled:opacity-40 disabled:hover:opacity-40">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-5 w-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Dot navigation -->
+  <nav aria-label="Page sections" class="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col items-end gap-4 md:gap-5">
+    <button data-dot data-target="#hero" class="group flex items-center gap-3 focus:outline-none" aria-label="Go to Start" aria-current="true">
+      <span class="text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Start</span>
+      <span class="dot w-1.5 h-1.5 rounded-full bg-gray-400/80"></span>
+    </button>
+    <button data-dot data-target="#who-i-am" class="group flex items-center gap-3 focus:outline-none" aria-label="Go to Who I Am">
+      <span class="text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Who I Am</span>
+      <span class="dot w-1.5 h-1.5 rounded-full bg-gray-400/80"></span>
+    </button>
+    <button data-dot data-target="#how-i-work" class="group flex items-center gap-3 focus:outline-none" aria-label="Go to How I Work">
+      <span class="text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">How I Work</span>
+      <span class="dot w-1.5 h-1.5 rounded-full bg-gray-400/80"></span>
+    </button>
+    <button data-dot data-target="#story" class="group flex items-center gap-3 focus:outline-none" aria-label="Go to The Story">
+      <span class="text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">The Story</span>
+      <span class="dot w-1.5 h-1.5 rounded-full bg-gray-400/80"></span>
+    </button>
+    <button data-dot data-target="#looking-for" class="group flex items-center gap-3 focus:outline-none" aria-label="Go to What's Next">
+      <span class="text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">What's Next</span>
+      <span class="dot w-1.5 h-1.5 rounded-full bg-gray-400/80"></span>
+    </button>
+    <button data-dot data-target="#contact" class="group flex items-center gap-3 focus:outline-none" aria-label="Go to Contact">
+      <span class="text-xs text-white/70 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Contact</span>
+      <span class="dot w-1.5 h-1.5 rounded-full bg-gray-400/80"></span>
+    </button>
+  </nav>
+
+
+    
+  <script>
+    ;(function () {
+      var container = document.getElementById('scroll-container')
+      // Target sections plus the footer section inside the container
+      var sections = Array.prototype.slice.call(document.querySelectorAll('#scroll-container > section, #scroll-container > footer'))
+      var prevButton = document.getElementById('prev-section')
+      var nextButton = document.getElementById('next-section')
+      var dotButtons = Array.prototype.slice.call(document.querySelectorAll('[data-dot]'))
+      var currentIndex = 0
+      var targetIndex = 0
+    
+      if (!container || !prevButton || !nextButton || sections.length === 0) return
+    
+      function getSectionIndexById(sectionId) {
+        for (var i = 0; i < sections.length; i++) {
+          if (sections[i].id === sectionId) {
+            return i
+          }
+        }
+        return -1
+      }
+    
+      function updateHash(index) {
+        var sectionId = sections[index] && sections[index].id
+        if (!sectionId) return
+    
+        var nextHash = '#' + sectionId
+        if (window.location.hash !== nextHash) {
+          history.replaceState(null, '', nextHash)
+        }
+      }
+    
+      function getCurrentIndex() {
+        var closestIndex = 0
+        var closestDistance = Infinity
+    
+        sections.forEach(function (section, index) {
+          var rect = section.getBoundingClientRect()
+          var distance = Math.abs(rect.top - 120)
+          if (distance < closestDistance) {
+            closestDistance = distance
+            closestIndex = index
+          }
+        })
+    
+        return closestIndex
+      }
+    
+      function updateButtons(index) {
+        currentIndex = typeof index === 'number' ? index : getCurrentIndex()
+        prevButton.disabled = currentIndex <= 0
+        nextButton.disabled = currentIndex >= sections.length - 1
+      }
+    
+      function scrollToIndex(index, animate) {
+        var safeIndex = Math.max(0, Math.min(index, sections.length - 1))
+        var targetTop = sections[safeIndex].offsetTop
+    
+        targetIndex = safeIndex
+        updateButtons(safeIndex)
+        updateHash(safeIndex)
+    
+        container.style.scrollBehavior = animate === false ? 'auto' : 'smooth'
+        container.scrollTo({
+          top: targetTop,
+          behavior: animate === false ? 'auto' : 'smooth'
+        })
+      }
+    
+      function goToIndex(index, animate) {
+        scrollToIndex(index, animate)
+      }
+    
+      function stepBy(direction) {
+        var nextIndex = Math.max(0, Math.min(targetIndex + direction, sections.length - 1))
+        if (nextIndex === targetIndex) {
+          updateButtons(targetIndex)
+          return
+        }
+        goToIndex(nextIndex, true)
+      }
+    
+      function SyncFromHash() {
+        var hashIndex = getSectionIndexById(window.location.hash.replace(/^#/, ''))
+        if (hashIndex >= 0) {
+          currentIndex = hashIndex
+          targetIndex = hashIndex
+          updateButtons(hashIndex)
+          goToIndex(hashIndex, false)
+        }
+      }
+    
+      prevButton.addEventListener('click', function (event) {
+        event.preventDefault()
+        if (prevButton.disabled) return
+        stepBy(-1)
+      })
+    
+      nextButton.addEventListener('click', function (event) {
+        event.preventDefault()
+        if (nextButton.disabled) return
+        stepBy(1)
+      })
+    
+      dotButtons.forEach(function (dotButton) {
+        dotButton.addEventListener('click', function (event) {
+          event.preventDefault()
+          var target = dotButton.getAttribute('data-target')
+          var targetSection = document.querySelector(target)
+          var index = sections.indexOf(targetSection)
+    
+          if (index >= 0) {
+            goToIndex(index, true)
+          }
+        })
+      })
+    
+      container.addEventListener(
+        'scroll',
+        function () {
+          var index = getCurrentIndex()
+          if (index !== currentIndex) {
+            currentIndex = index
+            updateButtons(index)
+            updateHash(index)
+          }
+        },
+        { passive: true }
+      )
+    
+      window.addEventListener('resize', function () {
+        updateButtons()
+      })
+      window.addEventListener('load', function () {
+        SyncFromHash()
+      })
+      updateButtons()
+      SyncFromHash()
+    })()
+  </script>
+
+
+    <script src="https://yahya-sh.github.io/js/main.js" defer></script>
+  </body>
 </html>
