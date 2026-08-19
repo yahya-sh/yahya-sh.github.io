@@ -138,16 +138,15 @@
   <script>
     ;(function () {
       var container = document.getElementById('scroll-container')
-      // Target sections plus the footer section inside the container
       var sections = Array.prototype.slice.call(document.querySelectorAll('#scroll-container > section, #scroll-container > footer'))
       var prevButton = document.getElementById('prev-section')
       var nextButton = document.getElementById('next-section')
       var dotButtons = Array.prototype.slice.call(document.querySelectorAll('[data-dot]'))
       var currentIndex = 0
       var targetIndex = 0
-    
+
       if (!container || !prevButton || !nextButton || sections.length === 0) return
-    
+
       function getSectionIndexById(sectionId) {
         for (var i = 0; i < sections.length; i++) {
           if (sections[i].id === sectionId) {
@@ -156,122 +155,147 @@
         }
         return -1
       }
-    
+
       function updateHash(index) {
         var sectionId = sections[index] && sections[index].id
         if (!sectionId) return
-    
+
         var nextHash = '#' + sectionId
         if (window.location.hash !== nextHash) {
           history.replaceState(null, '', nextHash)
         }
       }
-    
+
       function getCurrentIndex() {
+        var isAtBottom = (container.scrollTop + container.clientHeight) >= (container.scrollHeight - 15)
+        if (isAtBottom) {
+          return sections.length - 1
+        }
+
         var closestIndex = 0
         var closestDistance = Infinity
-    
+
         sections.forEach(function (section, index) {
           var rect = section.getBoundingClientRect()
-          var distance = Math.abs(rect.top - 120)
+          var distance = Math.abs(rect.top)
           if (distance < closestDistance) {
             closestDistance = distance
             closestIndex = index
           }
         })
-    
+
         return closestIndex
       }
-    
-      function updateButtons(index) {
+
+      function updateActiveDot(index) {
+        dotButtons.forEach(function (dotBtn, idx) {
+          var dotVisual = dotBtn.querySelector('.dot')
+          if (idx === index) {
+            dotBtn.setAttribute('aria-current', 'true')
+            if (dotVisual) {
+              dotVisual.classList.remove('bg-gray-400/80')
+              dotVisual.classList.add('bg-white', 'scale-125')
+            }
+          } else {
+            dotBtn.removeAttribute('aria-current')
+            if (dotVisual) {
+              dotVisual.classList.remove('bg-white', 'scale-125')
+              dotVisual.classList.add('bg-gray-400/80')
+            }
+          }
+        })
+      }
+
+      function updateUI(index) {
         currentIndex = typeof index === 'number' ? index : getCurrentIndex()
         prevButton.disabled = currentIndex <= 0
         nextButton.disabled = currentIndex >= sections.length - 1
+        updateActiveDot(currentIndex)
       }
-    
+
       function scrollToIndex(index, animate) {
         var safeIndex = Math.max(0, Math.min(index, sections.length - 1))
         var targetTop = sections[safeIndex].offsetTop
-    
+
         targetIndex = safeIndex
-        updateButtons(safeIndex)
+        updateUI(safeIndex)
         updateHash(safeIndex)
-    
+
         container.style.scrollBehavior = animate === false ? 'auto' : 'smooth'
         container.scrollTo({
           top: targetTop,
           behavior: animate === false ? 'auto' : 'smooth'
         })
       }
-    
+
       function goToIndex(index, animate) {
         scrollToIndex(index, animate)
       }
-    
+
       function stepBy(direction) {
         var nextIndex = Math.max(0, Math.min(targetIndex + direction, sections.length - 1))
         if (nextIndex === targetIndex) {
-          updateButtons(targetIndex)
+          updateUI(targetIndex)
           return
         }
         goToIndex(nextIndex, true)
       }
-    
+
       function SyncFromHash() {
         var hashIndex = getSectionIndexById(window.location.hash.replace(/^#/, ''))
         if (hashIndex >= 0) {
           currentIndex = hashIndex
           targetIndex = hashIndex
-          updateButtons(hashIndex)
+          updateUI(hashIndex)
           goToIndex(hashIndex, false)
         }
       }
-    
+
       prevButton.addEventListener('click', function (event) {
         event.preventDefault()
         if (prevButton.disabled) return
         stepBy(-1)
       })
-    
+
       nextButton.addEventListener('click', function (event) {
         event.preventDefault()
         if (nextButton.disabled) return
         stepBy(1)
       })
-    
+
       dotButtons.forEach(function (dotButton) {
         dotButton.addEventListener('click', function (event) {
           event.preventDefault()
           var target = dotButton.getAttribute('data-target')
           var targetSection = document.querySelector(target)
           var index = sections.indexOf(targetSection)
-    
+
           if (index >= 0) {
             goToIndex(index, true)
           }
         })
       })
-    
+
       container.addEventListener(
         'scroll',
         function () {
           var index = getCurrentIndex()
           if (index !== currentIndex) {
             currentIndex = index
-            updateButtons(index)
+            updateUI(index)
             updateHash(index)
           }
         },
         { passive: true }
       )
-    
+
       window.addEventListener('resize', function () {
-        updateButtons()
+        updateUI()
       })
       window.addEventListener('load', function () {
         SyncFromHash()
       })
-      updateButtons()
+      updateUI()
       SyncFromHash()
     })()
   </script>
