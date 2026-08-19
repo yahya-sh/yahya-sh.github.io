@@ -16,15 +16,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Non-blocking Google Fonts with display=swap (Fixes Render-Blocking LCP) -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
-    </noscript>
+    <!-- Optimized Google Fonts with swap display -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" />
 
-    <!-- Compiled Tailwind CSS v4 (Generated via GitHub Workflow CLI step) -->
-    <link rel="stylesheet" href="{{ get_url(path='css/compiled.style.css') }}" />
+    <!-- Inlined Compiled Tailwind CSS (Zero render-blocking requests) -->
+    <style>{{ load_data(path="static/css/compiled.style.css") | safe }}</style>
 
     <style>
       /* Accessibility: Skip Navigation Link */
