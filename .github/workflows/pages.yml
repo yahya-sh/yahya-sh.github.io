@@ -23,6 +23,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Tailwind CSS v4
+        run: npx @tailwindcss/cli -i ./static/css/style.css -o ./static/css/compiled.style.css --minify
+
       - name: Build Zola + upload Pages artifact
         uses: getzola/github-pages@v1
         with:

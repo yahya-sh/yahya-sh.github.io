@@ -1,1 +1,1 @@
-zola build && zola serve  --interface 0.0.0.0 --base-url http://macbook-air-yahya.tailb540b4.ts.net --port 1111
+tailwindcss -i ./static/css/style.css -o ./static/css/compiled.style.css --minify && zola build && zola serve  --interface 0.0.0.0 --base-url http://macbook-air-yahya.tailb540b4.ts.net --port 1111
